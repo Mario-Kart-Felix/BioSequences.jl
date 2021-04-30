@@ -3,7 +3,14 @@
 ###
 ### This file is a part of BioJulia.
 ### License is MIT: https://github.com/BioJulia/BioSequences.jl/blob/master/LICENSE.md
+"""
+A BioSequence must have the following methods implemented.
 
+- Base.length(x)
+
+- encoded_data(x)
+
+"""
 abstract type BioSequence{A<:Alphabet} end
 
 # Aliases and shorthands for describing subsets of the BioSequence type...
@@ -18,29 +25,10 @@ const AminoAcidSeq = BioSequence{AminoAcidAlphabet}
 
 # As must the following...
 
-"Get the length of a biological sequence."
-@inline function Base.length(seq::BioSequence)
-    error(
-        string(
-            "Base.length has not been defined for BioSequence type: ",
-            typeof(seq),
-            ". Any compatible concrete BioSequence subtype must have this method implemented."
-        )
-    )
-end
-
 """
 Return the data member of `seq` that stores the encoded sequence data.
 """
-@inline function encoded_data(seq::BioSequence)
-    error(
-        string(
-            "encoded_data has not been defined for BioSequence type: ",
-            typeof(seq),
-            ". Any compatible concrete BioSequence subtype must have this method implemented."
-        )
-    )
-end
+function encoded_data end
 
 ###
 ### Provided traits and methods

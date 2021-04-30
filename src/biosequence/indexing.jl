@@ -8,7 +8,7 @@
 ### License is MIT: https://github.com/BioJulia/BioSequences.jl/blob/master/LICENSE.md
 
 #=
-Indexing into BioSequences works as follows:
+The interface for indexing BioSequences works as follows:
 
 A `Base.getindex` method is provided for `BioSequence`.
 It's job is to, do boundschecking. And to then call `inbounds_getindex`.
