@@ -12,13 +12,12 @@ makedocs(
         "Predicates"                     => "predicates.md",
         "Random sequences"               => "random.md",
         "Pattern matching and searching" => "sequence_search.md",
-        "Sequence Demultipllexing"       => "demultiplexer.md",
-        "Sequence composition"           => "composition.md",
         "Iteration"                      => "iteration.md",
         "Counting"                       => "counting.md",
-        "I/O"                            => "io.md"
+        "I/O"                            => "io.md",
+        "Implementing custom types"      => "interfaces.md"
     ],
-    authors = "Ben J. Ward, D.C.Jones, Kenta Sato, The BioJulia Organisation and other contributors."
+    authors = "Sabrina Jaye Ward, Jakob Nissen, D.C.Jones, Kenta Sato, The BioJulia Organisation and other contributors."
 )
 
 deploydocs(

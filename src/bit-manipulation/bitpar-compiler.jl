@@ -25,12 +25,14 @@ function compile_bitpar(funcname::Symbol;
             if !iszero(offset(ind)) & (ind < stop)
                 # align the bit index to the beginning of a block boundary
                 o = offset(ind)
-                chunk = (data[index(ind)] >> o) & bitmask(stop - ind)
+                mask = bitmask(stop - ind)
+                n_bits_masked = ifelse(index(stop) == index(ind), count_zeros(mask), o)
+                chunk = (data[index(ind)] >> o) & mask
                 $(head_code)
                 ind += 64 - o
             end
             
-            lastind = index(stop - bits_per_symbol(seq))
+            lastind = index(stop - bits_per_symbol(Alphabet(seq)))
             lastind -= !iszero(offset(stop))
             for i in index(ind):lastind
                 chunk = data[i]
@@ -39,7 +41,8 @@ function compile_bitpar(funcname::Symbol;
             end
             
             if ind < stop
-                chunk = data[index(ind)] & bitmask(offset(stop))
+                n_bits_masked = 64 - offset(stop)
+                chunk = data[index(ind)] & bitmask(64 - n_bits_masked)
                 $(tail_code)
             end
         end
@@ -131,8 +134,8 @@ function compile_2seq_bitpar(funcname::Symbol;
         stopa = bitindex(seqa, lastindex(seqa) + 1)
         nextb = bitindex(seqb, 1)
         stopb = bitindex(seqb, lastindex(seqb) + 1)
-        adata = encoded_data(seqa)
-        bdata = encoded_data(seqb)
+        adata = seqa.data
+        bdata = seqb.data
         
         $(init_code)
         
